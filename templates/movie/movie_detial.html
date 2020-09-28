@@ -1,0 +1,203 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+{{movie.title}}
+{% endblock title %}
+{% block contant %}
+<!-- details -->
+<section class="section details">
+    <!-- details background -->
+    <div class="details__bg" data-bg="{{movie.banner}}"></div>
+    <!-- end details background -->
+
+    <!-- details content -->
+    <div class="container">
+        <div class="row">
+            <!-- title -->
+            <div class="col-12">
+                {% if movie.title %}
+                <h1 class="details__title ">{{movie.title}}</h1>
+                {% else %}
+                <h1 class="details__title ">{{movie.series.name}}</h1>
+                {% endif %}
+            </div>
+            <!-- end title -->
+
+            <!-- content -->
+            <div class="col-12 col-xl-6">
+                <div class="card card--details">
+                    <div class="row">
+                        <!-- card cover -->
+                        <div class="col-12  col-md-4 col-lg-3 col-xl-5">
+                            <div class="card__cover">
+                                <img src="{{movie.banner}}" height="320px" width="100%" alt="">
+                            </div>
+                        </div>
+                        <!-- end card cover -->
+
+                        <!-- card content -->
+                        <div class="col-12 col-sm-8 col-md-8 col-lg-9 col-xl-7">
+                            <div class="card__content">
+                                <div class="card__wrap">
+                                    <span class="card__rate"><i class="icon ion-ios-star"></i>{{movie.rate}}</span>
+
+                                    <ul class="card__list">
+                                        <li>{{movie.quality}}</li>
+                                        {% if movie.age %}
+                                        <li>{{movie.age}}+</li>
+                                        {% else %}
+                                        <li>{{movie.series.age}}+</li>
+                                        {% endif %}
+
+                                    </ul>
+                                </div>
+
+                                <ul class="card__meta">
+                                    <li><span>Genre:</span>
+                                        <a href="#">
+                                            {% if movie.category %}
+                                            {{movie.category}}
+                                            {% else %}
+                                            {{movie.series.category}}
+                                            {% endif %}
+                                        </a></li>
+                                    <li><span>Release year:</span> 2017</li>
+                                    <li><span>Running time:</span> {{movie.runing_time}} min</li>
+                                    {% if movie.country %}
+                                    <li><span>Country:</span> <a href="#">{{movie.country}}</a> </li>
+                                    {% else %}
+                                    <li><span>Country:</span> <a href="#">{{movie.series.country}}</a> </li>
+                                    {% endif %}
+
+                                </ul>
+                                {% if movie.description %}
+                                <div class="card__description card__description--details">
+                                    {{movie.description}}
+                                </div>
+                                {% else %}
+                                <div class="card__description card__description--details">
+                                    {{movie.series.description}}
+                                </div>
+                                {% endif %}
+
+
+                            </div>
+                        </div>
+                        <!-- end card content -->
+                    </div>
+                </div>
+            </div>
+            <!-- end content -->
+
+            <!-- player -->
+            <div class="col-12 offset-xl-1 col-xl-5">
+                <iframe height="315" src="{{movie.link}}" FRAMEBORDER=0 MARGINWIDTH=0 MARGINHEIGHT=0 SCROLLING=NO
+                    allowfullscreen style=" width: 100%;">
+                </iframe>
+            </div>
+            <!-- end player -->
+        </div>
+    </div>
+    <!-- end details content -->
+</section>
+<!-- end details -->
+
+<!-- content -->
+<section class="content">
+    <div class="content__head">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <!-- content title -->
+                    <h2 class="content__title">Discover</h2>
+                    <!-- end content title -->
+
+                    <!-- content tabs nav -->
+                    <ul class="nav nav-tabs content__tabs" id="content__tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-1"
+                                aria-selected="false">Trailers</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tab-2" role="tab" aria-controls="tab-2"
+                                aria-selected="false">Photos</a>
+                        </li>
+                    </ul>
+                    <!-- end content tabs nav -->
+
+                    <!-- content mobile tabs nav -->
+                    <div class="content__mobile-tabs" id="content__mobile-tabs">
+                        <div class="content__mobile-tabs-btn dropdown-toggle" role="navigation" id="mobile-tabs"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <input type="button" value="Comments">
+                            <span></span>
+                        </div>
+
+                        <div class="content__mobile-tabs-menu dropdown-menu" aria-labelledby="mobile-tabs">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="nav-item"><a class="nav-link active" id="1-tab" data-toggle="tab"
+                                        href="#tab-1" role="tab" aria-controls="tab-1" aria-selected="false">Trailer</a>
+                                </li>
+                                <li class="nav-item"><a class="nav-link" id="2-tab" data-toggle="tab" href="#tab-2"
+                                        role="tab" aria-controls="tab-2" aria-selected="false">Photos</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- end content mobile tabs nav -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-8 col-xl-8">
+                <!-- content tabs -->
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="tab-1" role="tabpanel" aria-labelledby="1-tab">
+                        <!-- project gallery -->
+                        <div class="gallery" itemscope>
+                            <div class="row">
+                                <!-- gallery item -->
+                                <div class="col-12 col-xl-10">
+                                    <iframe height="350" src="{{movie.movie_trailer}}" FRAMEBORDER=0 MARGINWIDTH=0
+                                        MARGINHEIGHT=0 SCROLLING=NO allowfullscreen style=" width: 100%;">
+                                    </iframe>
+                                </div>
+
+
+                                <!-- end gallery item -->
+                            </div>
+                        </div>
+                        <!-- end project gallery -->
+                    </div>
+                    <div class="tab-pane fade" id="tab-2" role="tabpanel" aria-labelledby="2-tab">
+                        <!-- project gallery -->
+                        <div class="gallery" itemscope>
+                            <div class="row">
+                                <!-- gallery item -->
+                                {% for image in images %}
+                                <figure class="col-12 col-sm-6 col-xl-4" itemprop="associatedMedia" itemscope>
+                                    <a href='{{image.image}}' itemprop="contentUrl" data-size="1920x1280">
+                                        <img src="{{image.image}}" itemprop="thumbnail" alt="Image description" />
+                                    </a>
+                                    <figcaption itemprop="caption description">Some image caption 1</figcaption>
+                                </figure>
+                                {% endfor %}
+                                <!-- end gallery item -->
+                            </div>
+                        </div>
+                        <!-- end project gallery -->
+                    </div>
+                </div>
+                <!-- end content tabs -->
+            </div>
+
+            
+        </div>
+    </div>
+</section>
+<!-- end content -->
+
+{% endblock contant %}

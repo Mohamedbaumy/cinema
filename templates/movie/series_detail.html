@@ -1,0 +1,238 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+
+{% endblock title %}
+{% block contant %}
+
+<!-- details -->
+<section class="section details">
+    <!-- details background -->
+    <div class="details__bg" data-bg='{{series.banner}}'></div>
+    <!-- end details background -->
+
+    <!-- details content -->
+    <div class="container">
+        <div class="row">
+            <!-- title -->
+            <div class="col-12">
+                <h1 class="details__title">{{series.name}}</h1>
+            </div>
+            <!-- end title -->
+
+            <!-- content -->
+            <div class="col-10">
+                <div class="card card--details card--series">
+                    <div class="row">
+                        <!-- card cover -->
+                        <div class="col-12 col-sm-4 col-md-4 col-lg-3 col-xl-3">
+                            <div class="card__cover">
+                                <img src="{{series.banner}}" alt="">
+                            </div>
+                        </div>
+                        <!-- end card cover -->
+
+                        <!-- card content -->
+                        <div class="col-12 col-sm-8 col-md-8 col-lg-9 col-xl-9">
+                            <div class="card__content">
+                                <div class="card__wrap">
+
+
+                                    <ul class="card__list">
+                                        <li>{{series.age}}+</li>
+                                    </ul>
+                                </div>
+
+                                <ul class="card__meta">
+                                    <li><span>Genre:</span> <a href="#">{{series.category}}</a>
+                                    <li><span>Release year:</span> {{series.year}}</li>
+
+                                    <li><span>Country:</span> <a href="#">{{series.country}}</a> </li>
+                                </ul>
+
+                                <div class="card__description card__description--details">
+                                    {{series.description}}
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end card content -->
+                    </div>
+                </div>
+            </div>
+            <!-- end content -->
+
+            <!-- player -->
+            <div class="col-12 col-xl-6">
+                <iframe height="315" src="{{series.trailer}}" frameborder="0"  allowfullscreen style=" width: 100%;">
+                </iframe>
+            </div>
+            <!-- end player -->
+
+            <!-- accordion -->
+            <div class="col-12 col-xl-6">
+                <div class="accordion" id="accordion">
+                    {% for s in series.series_season.all %}
+                    <div class="accordion__card">
+                        <div class="card-header" id="headingOne">
+                            <button type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                                aria-controls="collapseOne">
+                                <span>Season:{{s.season_num}}</span>
+                            </button>
+                        </div>
+
+                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                            data-parent="#accordion">
+                            <div class="card-body">
+                                <table class="accordion__list">
+                                    <thead>
+                                        <tr>
+                                            <th>Episode</th>
+                                            <th>Air Date</th>
+                                            <th>Vist</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        {% for e in s.season.all %}
+
+                                        <tr>
+                                            <a href="{{e.get_ebsolute_url}}">
+                                                <th>{{e.episode_num}}</th>
+                                                <td>{{e.air_date|date:"l, F d S, Y"}}</td>
+                                                <td><a href="{{e.get_absolute_url}}">Vist</a></td>
+                                            </a>
+                                        </tr>
+
+                                        {% endfor %}
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% empty %}
+                    <div class="accordion__card">
+                        <div class="card-header" id="headingOne">
+                            <button type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                                aria-controls="collapseOne">
+                                <span>{{series.name}}</span>
+                            </button>
+                        </div>
+
+                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                            data-parent="#accordion">
+                            <div class="card-body">
+                                <table class="accordion__list">
+                                    <thead>
+                                        <tr>
+                                            <th>Episode</th>
+                                            <th>Air Date</th>
+                                            <th>Vist</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        {% for e in series.series_movie.all %}
+
+                                        <tr>
+                                            <a href="{{e.get_ebsolute_url}}">
+                                                <th>{{e.episode_num}}</th>
+                                                <td>{{e.air_date|date:"l, F d S, Y"}}</td>
+                                                <td><a href="{{e.get_absolute_url}}">Vist</a></td>
+                                            </a>
+                                        </tr>
+
+                                        {% endfor %}
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <!-- end accordion -->
+        </div>
+    </div>
+    <!-- end details content -->
+</section>
+<!-- end details -->
+
+<!-- content -->
+<section class="content">
+    <div class="content__head">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <!-- content title -->
+                    <h2 class="content__title">Discover</h2>
+                    <!-- end content title -->
+
+                    <!-- content tabs nav -->
+                    <ul class="nav nav-tabs content__tabs" id="content__tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tab-3" role="tab" aria-controls="tab-3"
+                                aria-selected="false">Photos</a>
+                        </li>
+                    </ul>
+                    <!-- end content tabs nav -->
+
+                    <!-- content mobile tabs nav -->
+                    <div class="content__mobile-tabs" id="content__mobile-tabs">
+                        <div class="content__mobile-tabs-btn dropdown-toggle" role="navigation" id="mobile-tabs"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <input type="button" value="Photos">
+                            <span></span>
+                        </div>
+
+                        <div class="content__mobile-tabs-menu dropdown-menu" aria-labelledby="mobile-tabs">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="nav-item"><a class="nav-link" id="3-tab" data-toggle="tab" href="#tab-3"
+                                        role="tab" aria-controls="tab-3" aria-selected="false">Photos</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- end content mobile tabs nav -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-8 col-xl-8">
+                <!-- content tabs -->
+                <div class="tab-content" id="myTabContent">
+
+                    <div class="tab-pane fade show active" id="tab-3" role="tabpanel" aria-labelledby="3-tab">
+                        <!-- project gallery -->
+                        <div class="gallery" itemscope>
+                            <div class="row">
+                                {% for image in series.series_photo.all %}
+                                <!-- gallery item -->
+                                <figure class="col-12 col-sm-6 col-xl-4" itemprop="associatedMedia" itemscope>
+                                    <a href="{{image}}" itemprop="contentUrl" data-size="1920x1280">
+                                        <img src="{{image}}" itemprop="thumbnail" alt="Image description" />
+                                    </a>
+                                    <figcaption itemprop="caption description">Some image caption 1</figcaption>
+                                </figure>
+                                <!-- end gallery item -->
+                                {% endfor %}
+
+
+
+                            </div>
+                        </div>
+                        <!-- end project gallery -->
+                    </div>
+                </div>
+                <!-- end content tabs -->
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end content -->
+
+{% endblock contant %}
